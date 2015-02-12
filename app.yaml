@@ -1,0 +1,30 @@
+application: project-marosf
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /stylesheets
+  static_dir: view/stylesheets
+
+- url: /img
+  static_dir: view/images
+
+- url: /favicon.ico
+  static_files: view/images/favicon.ico
+  upload: view/images/favicon.ico
+
+- url: /.*
+  script: main.app
+
+libraries:
+- name: django
+  version : "1.3"
+
+- name: ssl
+  version: "latest"
+
+builtins:
+- deferred : on
+

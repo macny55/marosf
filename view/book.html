@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block select %}
+    {% for tag in tags %}
+     <option value="{{CALLBACK}}/book?usr_id={{usr_id}}&tag={{tag}}">{{tag}}</option>
+    {% endfor %}
+{% endblock %}
+
+{% block container %}
+    {% if login %}
+<div id="book_area"><a id='book_img' href="http://www.amazon.co.jp/dp/{{asin}}/ref=r_soa_po_i"><img src="{{book_img}}" width=120 height=150 alt="{{book_title}}" title="{{book_title}}"></img></a></div>
+<p><font size="1">{{first_post_date}}{{nyoronyoro}}{{last_post_date}}</font></p>
+    {% for tweet in contents %}
+<div id="tweet_content">
+<div id="delete_contents"><button type="button" onclick="delete_content('{{tweet.tweet_id}}','{{usr_id}}','{{asin}}','{{ind_tag}}')" class="delete_button_{{tweet.content_count}}">x</button></div>
+<form action="/update?param={{tweet.tweet_id}}&usr_id={{usr_id}}&asin={{asin}}&tag={{ind_tag}}" method="post" name="tag_{{tweet.content_count}}">
+<p style="background-color:#16A085;" id="tag">{{tweet.tag}}</p>
+</form>
+<form action="/update?param={{tweet.tweet_id}}&usr_id={{usr_id}}&asin={{asin}}&tag={{ind_tag}}" method="post" name="contents_{{tweet.content_count}}">
+<p id="contents"><font size="3">{{tweet.contents}}</font></p>
+</form>
+<form action="/update?param={{tweet.tweet_id}}&usr_id={{usr_id}}&asin={{asin}}&tag={{ind_tag}}" method="post" name="memo_{{tweet.content_count}}">
+<p id="memo"><font size="2" color="#808080">{{tweet.memo}}</font></p>
+</form>
+</div>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+{% if  qualify %}
+<script src="stylesheets/js/jquery.autosize.min.js"></script>
+<script src="stylesheets/js/book.js"></script>
+<script type="text/javascript">window.onload = disp_block_line('{{content_count}}');</script>
+{% endif %}
+{% endblock %}

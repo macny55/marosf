@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+   
+{% block footer %}
+<script src="stylesheets/js/confirm.js"></script>
+<script type="text/javascript">
+window.onload = disp_confirm('{{usr_name}}');
+</script>
+{% endblock %}

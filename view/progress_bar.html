@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>$(document).ready(function() {
+    var bar = document.getElementById('bar'),
+        fallback = document.getElementById('download'),
+        loaded = 0;
+
+    var load = function() {
+        loaded ++;
+        bar.value = loaded;
+	
+        $("#loadText").html(loaded + '%');
+	$("#bar span").css('width', loaded + '%');
+	
+	//100%に達したら、アニメーションを開始してプログレスバー及び表示文字は消える。
+        if (loaded >= 100) {
+          clearInterval(beginLoad);
+          document.location = "{{CALLBACK}}/books?usr_id={{usr_id}}";
+        }
+    };
+    //load関数を実行してローディングを開始する。
+    var beginLoad = setInterval(function() {
+        load();
+    }, {{progress}});
+
+});
+</script>
+{% endblock %}
+
+
+{% block container %}
+<section id = "loadingSection">
+  <p>Loading... <span id="loadText">0%</span></p>
+  <div id="bar" value="0" max="100" >
+    <span id="download">
+    </span>
+  </div>
+</section>
+{% endblock %}

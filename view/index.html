@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block select %}
+    {% for tag in tags %}
+     <option value="{{CALLBACK}}/book?usr_id={{usr_id}}&tag={{tag}}">{{tag}}</option>
+    {% endfor %}
+{% endblock %}
+
+{% block container %}
+    {% if login %}
+    {% for book_info in books_info %}
+     <a id="all_books" href="book?usr_id={{usr_id}}&asin={{book_info.asin}}"><img src="{{book_info.book_url}}" width=120 height=150 alt="{{book_info.book_title}}" title="{{book_info.book_title}}"></img></a>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
