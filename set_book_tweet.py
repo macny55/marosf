@@ -95,7 +95,7 @@ def create_callback(rpc,usr_name,created_at,id,tweet,newest_id,statuses):
 def handle_result(rpc,usr_name,created_at,id,tweet,newest_id,statuses):
     try:
         result = rpc.get_result()
-        contents , memo , asin ,book_title ,book_img_url , tag = tweet_analyze.set_book_tweet(result.content,tweet)
+        contents , memo , asin ,book_title ,book_img_url , tag = tweet_analyze.get_book_tweet(result.content,tweet)
         if asin != -1:
             insert_Books(usr_name , asin)
             insert_Book_img(asin , book_img_url , book_title)
