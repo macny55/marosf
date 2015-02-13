@@ -63,13 +63,7 @@ def set_usr_book_tweet(access_token):
                     tweet_urls.append(tweet_info)
                 else:
                     return 0
-            for t_u in tweet_urls:
-                rpc = urlfetch.create_rpc(deadline = 10)
-                rpc.callback = create_callback(rpc,usr_name,t_u["created_at"],t_u["id"],t_u["tweet"],id,statuses)
-                urlfetch.make_fetch_call(rpc,t_u["tweet_url"])
-                rpcs.append(rpc)
-            for rpc in rpcs:
-                rpc.wait()
+            url_fetch(tweet_urls)
     #初めてデータを取得するとき
     else:
         for u in tweepy.Cursor(api.user_timeline).items(statuses):
@@ -79,13 +73,17 @@ def set_usr_book_tweet(access_token):
                 tweet_urls.append(tweet_info)
             else:
                 return 0
-        for t_u in tweet_urls:
-            rpc = urlfetch.create_rpc()
-            rpc.callback = create_callback(rpc,usr_name,t_u["created_at"],t_u["id"],t_u["tweet"],id,statuses)
-            urlfetch.make_fetch_call(rpc,t_u["tweet_url"])
-            rpcs.append(rpc)
-        for rpc in rpcs:
-            rpc.wait()
+        url_fetch(tweet_urls)
+
+# ツイートに含まれているURLをフェッチする
+def url_fetch(urls):
+    for u in urls:
+        rpc = urlfetch.create_rpc()
+        rpc.callback = create_callback(rpc,usr_name,u["created_at"],u["id"],u["tweet"],id,statuses)
+        urlfetch.make_fetch_call(rpc,u["tweet_url"])
+        rpcs.append(rpc)
+    for rpc in rpcs:
+        rpc.wait()
 
 # HTTPリクエストを並列化し実行
 def create_callback(rpc,usr_name,created_at,id,tweet,newest_id,statuses):
