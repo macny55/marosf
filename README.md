@@ -1,3 +1,3 @@
 # marosf
 For Kindle User App  
-Djangoではありません。すみません。
+Djangoではありませんでした。すみません。
