@@ -38,7 +38,7 @@ def insert_Book_img(asin , book_img_url , book_title):
 def insert_Newest_tweet(usr_name , newest_id , statuses)
     data.Newest_tweet.get_or_insert(key_name=usr_name,usr_id=usr_name,newest_tweet_id=newest_id,statuses=statuses)
 
-# 非同期リクエストを用いバックエンドでデータを取得し保存する
+# データを取得し保存する
 def set_usr_book_tweet(access_token):
     tmp ,api = token_api(access_token)
     time_line = api.user_timeline(count=5)
