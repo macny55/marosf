@@ -9,6 +9,7 @@ class Newest_tweet(db.Model):
   statuses = db.IntegerProperty()
   flag_1 = db.StringProperty()
   flag_2 = db.StringProperty()
+  
 class Book_tweet(db.Model):
   usr_id = db.StringProperty()
   tweet_id = db.IntegerProperty()
