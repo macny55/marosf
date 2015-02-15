@@ -127,11 +127,6 @@ def get_tags(usr_name):
 # イベントハンドラ-----------------------------------------------------------------------------------------------------
 # ログイン後のトップページ 未取得のツイートがあれば自動的に取得し保存する なければBookPageを表示する
 class MainPage(webapp.RequestHandler):
-    def get_usr_info(self, access_token):
-        auth, tmp = token_api(access_token)
-        username = auth.get_username()
-        return {'username':username}
-        
     def get(self):
         token = cookie.load_cookie(self)
         if token != 'deleted' and token != '':
