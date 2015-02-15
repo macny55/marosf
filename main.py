@@ -242,6 +242,7 @@ class BookInformation(webapp.RequestHandler):
             qualify_flag = 0
         tags = get_tags(usr_name)
         http_tag = unicode(self.request.get('tag'))
+        # タグ別表示
         if http_tag:
             q_book_tweet = db.GqlQuery("SELECT * FROM Book_tweet WHERE tag = :1 AND usr_id=:2" ,http_tag, usr_name)
             if q_book_tweet:
@@ -260,6 +261,7 @@ class BookInformation(webapp.RequestHandler):
                                                            'ind_tag' : http_tag,
                                                            'content_count' : content_count
                                                            }))
+        # 個別表示   
         else:
             nyoronyoro = "〜"
             post_date_count = 0
