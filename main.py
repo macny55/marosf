@@ -351,21 +351,26 @@ class ContentUpdate(webapp.RequestHandler):
         tag = unicode(self.request.get('post_tag'))
         contents = self.request.get('contents')
         memo = self.request.get('memo')
+        # タグを編集したとき
         if tag:
             update_tag = data.Book_tweet.get_by_key_name(tweet_id)
             update_tag.tag = tag
             update_tag.put()
             tag = urllib2.quote(tag.encode("utf-8"))
+        # 投稿した文章を編集したとき
         elif contents:
             update_contents = data.Book_tweet.get_by_key_name(tweet_id)
             update_contents.contents = contents
             update_contents.put()
+        # メモを編集したとき    
         elif memo:
             update_memo = data.Book_tweet.get_by_key_name(tweet_id)
             update_memo.memo = memo
             update_memo.put()
+        # タグを編集したときは同じタグをもつ文章を表示する    
         if tag:
             self.redirect('/book?usr_id=' + usr_id + '&tag=' + tag)
+        # タグ検索後に編集したとき    
         elif http_tag:
             self.redirect('/book?usr_id=' + usr_id + '&tag=' + http_tag)
         else:
